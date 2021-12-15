@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SubjectsService } from 'src/app/services/subjects.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-subject-list',
@@ -12,7 +13,7 @@ export class SubjectListComponent implements OnInit {
   public selectedSubject: any;
   public subjects: any;
 
-  constructor(private subjectsService: SubjectsService, private router: Router) { }
+  constructor(private subjectsService: SubjectsService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.title = 'Editar Disciplina';
@@ -30,7 +31,7 @@ export class SubjectListComponent implements OnInit {
   public delete(){
     if(this.selectedSubject){
       this.subjectsService.deleteSubject(this.selectedSubject._id).subscribe(response => {
-        this.router.navigate([`/disciplinas-listar`]);
+        this.toastr.success('', 'Deletado com sucesso');
         this.selectedSubject = null;
         this.loadSubjects();
       });

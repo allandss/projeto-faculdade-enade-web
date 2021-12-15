@@ -14,6 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseListComponent } from './pages/course-list/course-list.component';
 import { SubjectListComponent } from './pages/subject-list/subject-list.component';
 import { QuestionListComponent } from './pages/question-list/question-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxMaskModule } from 'ngx-mask'
 
 @NgModule({
   declarations: [
@@ -32,7 +35,12 @@ import { QuestionListComponent } from './pages/question-list/question-list.compo
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot(
+      {timeOut: 1000,}
+    ),
+    NgxMaskModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

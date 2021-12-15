@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectsService } from 'src/app/services/subjects.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-subject',
@@ -12,7 +13,7 @@ export class SubjectComponent implements OnInit {
   public name: string = '';
   public idSubjectSelected: string = '';
 
-  constructor(private subjectsService: SubjectsService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private subjectsService: SubjectsService, private route: ActivatedRoute, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.idSubjectSelected = this.route.snapshot.paramMap.get('id') as any;
@@ -28,11 +29,15 @@ export class SubjectComponent implements OnInit {
     if(this.name.length >= 2){
       if(this.idSubjectSelected){
         this.subjectsService.updateSubject(this.idSubjectSelected, { name: this.name }).subscribe(response => {
-          this.router.navigate(['/disciplinas-listar']);
+          this.toastr.success('', 'Alterado com sucesso');
+          setTimeout(() => {
+            this.router.navigate(['/disciplinas-listar']);
+          }, 1000);
         });
       }else{
         this.subjectsService.createSubject({ name: this.name }).subscribe(response => {
           this.name = "";
+          this.toastr.success('', 'Cadastrado com sucesso');
         });
       }
     }else{

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from 'src/app/services/courses.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-course',
@@ -12,7 +13,7 @@ export class CourseComponent implements OnInit {
   public name: string = '';
   public idCourseSelected: string = '';
 
-  constructor(private coursesService: CoursesService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private coursesService: CoursesService, private route: ActivatedRoute, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.idCourseSelected = this.route.snapshot.paramMap.get('id') as any;
@@ -28,11 +29,15 @@ export class CourseComponent implements OnInit {
     if(this.name.length >= 2){
       if(this.idCourseSelected){
         this.coursesService.updateCourse(this.idCourseSelected, { name: this.name }).subscribe(response => {
-          this.router.navigate(['/cursos-listar']);
+          this.toastr.success('', 'Alterado com sucesso');
+          setTimeout(() => {
+            this.router.navigate(['/cursos-listar']);
+          }, 1000);
         });
       }else{
         this.coursesService.createCourse({ name: this.name }).subscribe(response => {
           this.name = "";
+          this.toastr.success('', 'Cadastrado com sucesso');
         });
       }
     }else{

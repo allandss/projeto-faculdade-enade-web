@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoursesService } from 'src/app/services/courses.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-course-list',
@@ -12,7 +13,7 @@ export class CourseListComponent implements OnInit {
   public selectedCourse: any;
   public courses: any;
 
-  constructor(private coursesService: CoursesService, private router: Router) { }
+  constructor(private coursesService: CoursesService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.title = 'Editar Curso';
@@ -30,9 +31,9 @@ export class CourseListComponent implements OnInit {
   public delete(){
     if(this.selectedCourse){
       this.coursesService.deleteCourse(this.selectedCourse._id).subscribe(response => {
-        this.router.navigate([`/cursos-listar`]);
         this.selectedCourse = null;
         this.loadCourses();
+        this.toastr.success('', 'Deletado com sucesso');
       });
     }else{
       alert('Selecione o curso');

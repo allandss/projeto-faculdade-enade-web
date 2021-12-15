@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CoursesService } from 'src/app/services/courses.service';
 import { QuestionsService } from 'src/app/services/questions.service';
 import { SubjectsService } from 'src/app/services/subjects.service';
@@ -28,7 +29,8 @@ export class QuestionListComponent implements OnInit {
     private coursesService: CoursesService,
     private subjectsService: SubjectsService,
     private route: ActivatedRoute, 
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +47,10 @@ export class QuestionListComponent implements OnInit {
 
   public delete(question: any){
     this.questionService.deleteQuestion(question._id).subscribe(response => {
-      this.router.navigate([`/questoes-listar`]);
+      this.toastr.success('', 'Deletado com sucesso');
+      this.questionService.getQuestions().subscribe(response => {
+        this.questions = response;
+      })
     });
 
   }
