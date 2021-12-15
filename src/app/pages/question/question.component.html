@@ -1,18 +1,69 @@
 <div class="background-default">
-  <div class="content">
+  <div class="content question">
     <h2>{{title}}</h2>
     <div class="form">
       <div class="row">
         <div class="col-md-2">
-          <p class="label">Curso:</p>
+          <p class="label">Nº Questão:</p>
         </div>
-        <div class="col-md-10">
-          <input type="text" [(ngModel)]="name" required >
+        <div class="col-md-4">
+          <input class="small" type="text" [(ngModel)]="question.number">
+        </div>
+        <div class="col-md-2">
+          <p class="label">Ano Prova:</p>
+        </div>
+        <div class="col-md-4">
+          <input class="small" type="text" [(ngModel)]="question.year">
         </div>
       </div>
-      <div class="buttons">
-        <button (click)="save()">Salvar</button>
-        <button (click)="clear()">Limpar</button>
+      <div class="row">
+        <div class="col-md-2">
+          <p class="label">Curso:</p>
+        </div>
+        <div class="col-md-4">
+          <select [(ngModel)]="question.course" multiple class="multiple">
+            <option disabled selected *ngIf="!courses">Selecione</option>
+            <option [ngValue]="course" *ngFor="let course of courses">{{course?.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <p class="label">Disciplina:</p>
+        </div>
+        <div class="col-md-4">
+          <select [(ngModel)]="question.subject" multiple class="multiple">
+            <option disabled selected *ngIf="!subjects">Selecione</option>
+            <option [ngValue]="subject" *ngFor="let subject of subjects">{{subject?.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <p class="label">Questão:</p>
+        </div>
+        <div class="col-md-10">
+          <textarea [(ngModel)]="question.description"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <p class="label">Alt.Correta</p>
+        </div>
+        <div class="col-md-4">
+          <select class="small" [(ngModel)]="question.answer">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <div class="buttons">
+            <button (click)="clear()">Limpar</button>
+            <button (click)="save()">Salvar</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,1 +1,84 @@
-<p>search works!</p>
+<div class="background-default">
+  <div class="content question">
+    <h2>{{title}}</h2>
+    <div class="form">
+      <div class="row">
+        <div class="col-md-2">
+          <p class="label">Nº Questão:</p>
+        </div>
+        <div class="col-md-4">
+          <select [(ngModel)]="question.number" class="custom-select">
+            <option [value]="number" *ngFor="let number of numbers">{{number}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <p class="label">Ano Prova:</p>
+        </div>
+        <div class="col-md-4">
+          <select [(ngModel)]="question.year" class="custom-select">
+            <option [ngValue]="year" *ngFor="let year of years">{{year}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <p class="label">Curso:</p>
+        </div>
+        <div class="col-md-4">
+          <select [(ngModel)]="question.course" multiple class="multiple">
+            <option disabled selected *ngIf="!courses">Selecione</option>
+            <option [ngValue]="course" *ngFor="let course of courses">{{course?.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <p class="label">Disciplina:</p>
+        </div>
+        <div class="col-md-4">
+          <select [(ngModel)]="question.subject" multiple class="multiple">
+            <option disabled selected *ngIf="!subjects">Selecione</option>
+            <option [ngValue]="subject" *ngFor="let subject of subjects">{{subject?.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="buttons">
+            <button (click)="filterQuestions()">Buscar</button>
+            <button (click)="clear()">Limpar </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table *ngIf="questions.length" class="table table-hover">
+            <thead>
+            <tr>
+              <th>Nº</th>
+              <th>Ano</th> 
+              <th>Curso</th>
+              <th>Disciplina</th>
+              <th>Questão</th>
+              <th>Alt. correta</th>
+              <th>Opcões</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of questions">
+              <td>{{item.number}}</td>
+              <td>{{item.year}}</td>
+              <td><span *ngFor="let course of item.course">({{course?.name}})</span></td>
+              <td><span *ngFor="let subject of item.subject">({{subject?.name}})</span></td>
+              <td>{{item.description}}</td>
+              <td>{{item.answer}}</td>
+              <td class="options">
+                <button (click)="edit(item)">Alterar</button>
+                <button (click)="delete(item)">Excluir</button>
+              </td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

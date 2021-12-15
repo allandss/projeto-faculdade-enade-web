@@ -14,8 +14,9 @@
 
 .content{
   background-color: rgb(255, 255, 255, 0.8);
-  min-height: calc(100vh - 110px);
+  height: calc(100vh - 110px);
   padding: 30px;
+  overflow-y: auto;
 
   h2{
     font-size: 26px;
@@ -33,13 +34,12 @@
 
     input, select{
       border-radius: 0px;
-      height: 35px;
-      width: 350px;
+      height: 33px;
       padding: 5px;
       border: 1px solid #999;
     }
 
-    input:focus, select:focus{
+    input:focus, select:focus, textarea:focus{
       outline: 0px;
     }
   }
@@ -60,5 +60,60 @@
       margin-left: 10px;
       color: #000;
     }
+
+    input, select{
+      width: 350px;
+    }
+  }
+}
+
+.question{
+  h2{
+    margin-bottom: 40px;
+  }
+
+  input, textarea, select{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  textarea{
+    height: 100px;
+    border-radius: 0px;
+    padding: 10px;
+  }
+
+  button{
+    background: #969696;
+    padding: 6px 20px;
+    font-size: 11px;
+    float: right;
+    margin-left: 10px;
+    color: #000;
+  }
+
+  input.small{
+    max-width: 100px;
+  }
+  
+  select.small{
+    width: 60px;
+  }
+
+  select.multiple{
+    height: 100px;
+  }
+
+  .custom-select{
+    width: 100px;
+  }
+}
+
+.table{
+  background: #fff;
+  margin-top: 50px;
+
+  .options{
+    min-width: 200px;
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, ɵɵsetComponentScope } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CoursesService } from 'src/app/services/courses.service';
 import { QuestionsService } from 'src/app/services/questions.service';
+import { SubjectsService } from 'src/app/services/subjects.service';
 
 @Component({
   selector: 'app-question',
@@ -11,40 +13,55 @@ export class QuestionComponent implements OnInit {
   public title: string = '';
   public name: string = '';
   public idQuestionSelected: string = '';
-  public question: any = {
-    number: "",
-    year: "",
-    course: [],
-	  subject: [],
-    description: "",
-    answer: ""
-  }
+  public courses: any;
+  public subjects: any;
+  public question: any;
 
-  constructor(private questionService: QuestionsService, private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    private questionService: QuestionsService, 
+    private coursesService: CoursesService,
+    private subjectsService: SubjectsService,
+    private route: ActivatedRoute, 
+    private router: Router
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {;
+    this.loadCourses();
+    this.loadSubjects();
     this.idQuestionSelected = this.route.snapshot.paramMap.get('id') as any;
     if(this.idQuestionSelected){
      this.title = 'Editar Questão';
      this.loadQuestion(this.idQuestionSelected);
     }else{
       this.title = 'Cadastrar Questão';
+      this.setForm();
+    }
+  }
+  
+  public setForm(){
+    this.question = {
+      number: "",
+      year: "",
+      course: [],
+      subject: [],
+      description: "",
+      answer: ""
     }
   }
 
   public save(){
-    if(true){
+    if(this.question.number && this.question.year && this.question.course.length && this.question.subject.length && this.question.description && this.question.answer){
       if(this.idQuestionSelected){
         this.questionService.updateQuestion(this.idQuestionSelected, this.question).subscribe(response => {
-          this.router.navigate(['/cursos-listar']);
+          this.router.navigate(['/questoes-listar']);
         });
       }else{
         this.questionService.createQuestion(this.question).subscribe(response => {
-          this.name = "";
+          this.setForm();
         });
       }
     }else{
-      alert('O nome do curso deve conter no mínimo de 2 caracteres');
+      alert('Preencha todos os campos para continuar');
     }
   }
 
@@ -61,6 +78,18 @@ export class QuestionComponent implements OnInit {
   public loadQuestions(){
     this.questionService.getQuestions().subscribe(response => {
       console.log(response);
+    })
+  }
+
+  public loadCourses(){
+    this.coursesService.getCourses().subscribe(response => {
+      this.courses = response;
+    })
+  }
+
+  public loadSubjects(){
+    this.subjectsService.getSubjects().subscribe(response => {
+      this.subjects = response;
     })
   }
 
