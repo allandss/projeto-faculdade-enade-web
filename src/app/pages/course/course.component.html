@@ -1,0 +1,19 @@
+<div class="background-default">
+  <div class="content">
+    <h2>{{title}}</h2>
+    <div class="form center">
+      <div class="row">
+        <div class="col-md-2">
+          <p class="label">Curso:</p>
+        </div>
+        <div class="col-md-10">
+          <input type="text" [(ngModel)]="name" required >
+        </div>
+      </div>
+      <div class="buttons">
+        <button (click)="save()">Salvar</button>
+        <button (click)="clear()">Limpar</button>
+      </div>
+    </div>
+  </div>
+</div>

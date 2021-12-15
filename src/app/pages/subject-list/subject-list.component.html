@@ -1,0 +1,22 @@
+<div class="background-default">
+  <div class="content">
+    <h2>{{title}}</h2>
+    <div class="form center">
+      <div class="row">
+        <div class="col-md-2">
+          <p class="label" style="margin-left: -20px">Disciplina:</p>
+        </div>
+        <div class="col-md-10">
+          <select [(ngModel)]="selectedSubject">
+            <option [ngValue]="subject" *ngFor="let subject of subjects">{{subject?.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="buttons">
+        <button (click)="loadSubjects()">Buscar</button>
+        <button (click)="edit()">Alterar</button>
+        <button (click)="delete()">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>

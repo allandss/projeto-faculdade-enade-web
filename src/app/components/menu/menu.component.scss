@@ -1,0 +1,40 @@
+.menu{
+  width: 250px;
+  float: left;
+  background-color: #000;
+  color: #fff;
+  height: calc(100vh - 70px);
+  h2{
+    text-align: center;
+    font-weight: 400;
+    background-color: #a6a6a6;
+    color: #000;
+    margin: 0;
+    font-size: 18px;
+    padding: 14px 0;
+  }
+  ul{
+    li{
+      text-align: center;
+      font-size: 18px;
+      a{
+        color: #fff;
+        padding: 20px 0;
+        display: inline-block;
+      }
+    }
+  }
+  .detail{
+    text-decoration: underline;
+  }
+  .links{
+    margin-top: 10px;
+    li{
+      font-size: 12px;
+      font-weight: 300;
+      a{
+        padding: 10px 0;
+      }
+    }
+  }
+}
